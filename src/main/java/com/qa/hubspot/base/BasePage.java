@@ -11,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import com.qa.hubspot.utils.ElementUtil;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
@@ -22,6 +24,7 @@ public class BasePage {
 
 	WebDriver driver;
 	Properties prop;
+	public ElementUtil elementUtil;
 
 	/**
 	 * this method is used to initialize the WebDriver on the basis of browser
@@ -36,9 +39,11 @@ public class BasePage {
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
+
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
+
 		} else if (browserName.equalsIgnoreCase("safari")) {
 			WebDriverManager.getInstance(SafariDriver.class).setup();
 			driver = new SafariDriver();
@@ -46,7 +51,7 @@ public class BasePage {
 
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		driver.get(prop.getProperty("url"));
 

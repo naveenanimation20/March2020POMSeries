@@ -14,6 +14,12 @@
 			<class name="com.qa.hubspot.tests.HomePageTest" />
 		</classes>
 	</test>
+	
+	<test name="contacts page test">
+		<classes>
+			<class name="com.qa.hubspot.tests.ContactsPageTest" />
+		</classes>
+	</test>
 
 
 </suite>
