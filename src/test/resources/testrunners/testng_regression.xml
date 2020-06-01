@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="Hub spot Test automtion regression suite" thread-count="5" parallel = "tests" verbose="3">
+<suite name="Hub spot Test automtion regression suite" verbose="3">
 
 	<test name="login page test">
 		<classes>
@@ -15,11 +15,11 @@
 		</classes>
 	</test>
 	
-	<test name="contacts page test">
+	<!-- <test name="contacts page test">
 		<classes>
 			<class name="com.qa.hubspot.tests.ContactsPageTest" />
 		</classes>
-	</test>
+	</test> -->
 
 
 </suite>

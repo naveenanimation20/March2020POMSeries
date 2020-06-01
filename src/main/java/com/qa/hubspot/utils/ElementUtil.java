@@ -12,12 +12,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ElementUtil {
+import com.qa.hubspot.base.BasePage;
+
+public class ElementUtil extends BasePage {
 
 	WebDriver driver;
+	JavaScriptUtil jsUtil;
 
 	public ElementUtil(WebDriver driver) {
 		this.driver = driver;
+		jsUtil = new JavaScriptUtil(this.driver);
 	}
 
 	public List<WebElement> getElements(By locator) {
@@ -30,6 +34,9 @@ public class ElementUtil {
 		try {
 			System.out.println("locator is : " + locator);
 			element = driver.findElement(locator);
+			if (prop.getProperty("highlight").equalsIgnoreCase("yes")) {
+				jsUtil.flash(element);
+			}
 			System.out.println("WebElement is created successfully : " + locator);
 
 		} catch (Exception e) {

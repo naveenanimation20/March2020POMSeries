@@ -17,6 +17,7 @@ public class ContactsPage extends BasePage {
 	By lastName = By.xpath("//input[@data-field='lastname']");
 	By jobTitle = By.xpath("//input[@data-field='jobtitle']");
 	By createContactSecondary = By.xpath("(//span[text()='Create contact'])[last()]");
+	By contactsBackLink = By.xpath("(//*[text()='Contacts'])[position()=1]");
 
 	public ContactsPage(WebDriver driver) {
 		this.driver = driver;
@@ -39,9 +40,15 @@ public class ContactsPage extends BasePage {
 		elementUtil.doSendKeys(this.firstName, firstName);
 		elementUtil.doSendKeys(this.lastName, lastName);
 
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		elementUtil.doSendKeys(this.jobTitle, jobTitle);
 
 		elementUtil.doActionsClick(createContactSecondary);
+		elementUtil.doActionsClick(contactsBackLink);
 
 	}
 
