@@ -14,6 +14,5 @@ public class Constants {
 	public static final String CONTACT_SHEET_NAME  = "contacts";
 	
 	
-	
 
 }

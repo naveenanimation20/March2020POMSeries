@@ -1,11 +1,14 @@
 package com.qa.hubspot.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.qa.hubspot.base.BaseTest;
+import com.qa.hubspot.listeners.ExtentReportListener;
 import com.qa.hubspot.utils.Constants;
 
+//@Listeners(ExtentReportListener.class)
 public class LoginPageTest extends BaseTest {
 
 	@Test(priority = 2)

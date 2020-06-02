@@ -1,10 +1,14 @@
 package com.qa.hubspot.base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,6 +29,12 @@ public class BasePage {
 	public Properties prop;
 	public ElementUtil elementUtil;
 
+	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+
+	public static synchronized WebDriver getDriver() {
+		return tlDriver.get();
+	}
+
 	/**
 	 * this method is used to initialize the WebDriver on the basis of browser
 	 * 
@@ -37,39 +47,27 @@ public class BasePage {
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
-//			ChromeOptions options = new ChromeOptions();
-//	        options.addArguments("window-size=800,600");
-//			DesiredCapabilities cap = DesiredCapabilities.chrome();
-//	        cap.setCapability(ChromeOptions.CAPABILITY, options);
-//			try {
-//				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			}
+			// driver = new ChromeDriver();
+			tlDriver.set(new ChromeDriver());
 
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			driver = new FirefoxDriver();
-//			DesiredCapabilities cap = DesiredCapabilities.firefox();
-//			try {
-//				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap);
-//			} catch (MalformedURLException e) {
-//				e.printStackTrace();
-//			}
+			// driver = new FirefoxDriver();
+			tlDriver.set(new FirefoxDriver());
 
 		} else if (browserName.equalsIgnoreCase("safari")) {
 			WebDriverManager.getInstance(SafariDriver.class).setup();
-			driver = new SafariDriver();
+			// driver = new SafariDriver();
+			tlDriver.set(new SafariDriver());
+
 		}
 
-		driver.manage().deleteAllCookies();
-		//driver.manage().window().maximize();
-		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		getDriver().manage().deleteAllCookies();
+		getDriver().manage().window().fullscreen();
 
-		driver.get(prop.getProperty("url"));
+		getDriver().get(prop.getProperty("url"));
 
-		return driver;
+		return getDriver();
 
 	}
 
@@ -91,6 +89,23 @@ public class BasePage {
 		}
 
 		return prop;
+	}
+
+	/**
+	 * this method will take the screenshot
+	 */
+	public String getScreenshot() {
+
+		File src = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+		String path = System.getProperty("user.dir") + "/screenshots/" + System.currentTimeMillis() + ".png";
+		File destination = new File(path);
+		try {
+			FileUtils.copyFile(src, destination);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return path;
 
 	}
 
