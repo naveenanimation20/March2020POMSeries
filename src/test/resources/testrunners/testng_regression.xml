@@ -4,12 +4,15 @@
 <suite name="Hub spot Test automtion regression suite" verbose="3">
 
 	<listeners>
-<!-- 		<listener class-name="com.qa.hubspot.listeners.ExtentReportListener" />
- -->		<listener class-name="com.qa.hubspot.listeners.pdfListener" />
+		<!-- <listener class-name="com.qa.hubspot.listeners.ExtentReportListener" />
+		<listener class-name="com.qa.hubspot.listeners.pdfListener" /> -->
+		
+		<listener class-name="com.qa.hubspot.listeners.TestAllureListener" />
+		
 
 	</listeners>
 
-	<test name="login page test">
+	<test name="HubSpot App test">
 		<classes>
 			<class name="com.qa.hubspot.tests.LoginPageTest" />
 		</classes>
