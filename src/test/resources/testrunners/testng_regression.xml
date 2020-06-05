@@ -4,18 +4,16 @@
 <suite name="Hub spot Test automtion regression suite" verbose="3">
 
 	<listeners>
-		<!-- <listener class-name="com.qa.hubspot.listeners.ExtentReportListener" />
-		<listener class-name="com.qa.hubspot.listeners.pdfListener" /> -->
-		
-<!-- 		<listener class-name="com.qa.hubspot.listeners.TestAllureListener" />
- -->		
-<!-- 		<listener class-name="com.qa.hubspot.listeners.TesultsListener" />
- -->		
- 
- 		<listener class-name="com.qa.hubspot.listeners.ScreenshotListener" />
- 
-		
-		
+		<!-- <listener class-name="com.qa.hubspot.listeners.ExtentReportListener" 
+			/> <listener class-name="com.qa.hubspot.listeners.pdfListener" /> -->
+
+		<!-- <listener class-name="com.qa.hubspot.listeners.TestAllureListener" 
+			/> -->
+		<!-- <listener class-name="com.qa.hubspot.listeners.TesultsListener" /> -->
+
+		<!-- <listener class-name="com.qa.hubspot.listeners.ScreenshotListener" 
+			/> -->
+
 
 	</listeners>
 
@@ -25,8 +23,11 @@
 		</classes>
 	</test>
 
-	<!-- <test name="home page test"> <classes> <class name="com.qa.hubspot.tests.HomePageTest" 
-		/> </classes> </test> -->
+	<test name="home page test">
+		<classes>
+			<class name="com.qa.hubspot.tests.HomePageTest" />
+		</classes>
+	</test>
 
 	<!-- <test name="contacts page test"> <classes> <class name="com.qa.hubspot.tests.ContactsPageTest" 
 		/> </classes> </test> -->
