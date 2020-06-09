@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" verbose="3" name="Failed suite [Hub spot Test automtion regression suite]">
+  <listeners>
+    <listener class-name="com.qa.hubspot.listeners.ScreenshotListener"/>
+  </listeners>
+  <test thread-count="5" verbose="3" name="HubSpot App test(failed)">
+    <classes>
+      <class name="com.qa.hubspot.tests.LoginPageTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="verifyLoginPageTitleTest"/>
+          <include name="tearDown"/>
+          <include name="verifySignUpLinkTest"/>
+        </methods>
+      </class> <!-- com.qa.hubspot.tests.LoginPageTest -->
+    </classes>
+  </test> <!-- HubSpot App test(failed) -->
+</suite> <!-- Failed suite [Hub spot Test automtion regression suite] -->
