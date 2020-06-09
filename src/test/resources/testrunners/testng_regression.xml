@@ -9,7 +9,7 @@
 		<!-- <listener class-name="com.qa.hubspot.listeners.pdfListener" /> -->
 
 		<listener class-name="com.qa.hubspot.listeners.TestAllureListener"/>
-		<!-- <listener class-name="com.qa.hubspot.listeners.TesultsListener" /> -->
+		<listener class-name="com.qa.hubspot.listeners.TesultsListener" />
 
 <!-- 		<listener class-name="com.qa.hubspot.listeners.ScreenshotListener" />
  -->
