@@ -44,9 +44,19 @@ public class BasePage {
 	 * @return driver
 	 */
 	public WebDriver init_driver(Properties prop) {
+		
+		String browserName = null;
+		if(System.getProperty("browser") == null){
+			browserName = prop.getProperty("browser");
+		}else{
+			browserName = System.getProperty("browser");
+		}
+		
+		System.out.println("Running on --->"+ browserName + " browser");
+		
 		optionsManager = new OptionsManager(prop);
 
-		String browserName = prop.getProperty("browser");
+		//String browserName = prop.getProperty("browser");
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
