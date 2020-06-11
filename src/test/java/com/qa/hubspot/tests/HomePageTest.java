@@ -24,14 +24,14 @@ public class HomePageTest extends BaseTest {
 		Assert.assertEquals(title, Constants.HOME_PAGE_TITLE, "home page title is not matched....");
 	}
 
-	@Test(priority = 1)
+	@Test(priority = 1,  enabled=false)
 	public void verifyHomePageHeader() {
 		String header = homePage.getHomePageHeaderText();
 		System.out.println("Home page header is : " + header);
 		Assert.assertEquals(header, Constants.HOME_PAGE_HEADER, "home page header is not present...");
 	}
 
-	@Test(priority = 2)
+	@Test(priority = 2, enabled=false)
 	public void verifyLoggedInUserTest() {
 		String loggedInUser = homePage.getLoggedInUser();
 		System.out.println("Logged in user is : " + loggedInUser);

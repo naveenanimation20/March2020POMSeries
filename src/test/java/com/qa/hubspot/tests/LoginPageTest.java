@@ -29,14 +29,14 @@ public class LoginPageTest extends BaseTest {
 		Assert.assertEquals(title, Constants.LOGIN_PAGE_TITLE, "login page title is not matched...");
 	}
 
-	@Test(priority = 1)
+	@Test(priority = 1, enabled=false)
 	@Description("verify sugn up link test.....")
 	@Severity(SeverityLevel.CRITICAL)
 	public void verifySignUpLinkTest() {
 		Assert.assertTrue(loginPage.verifySignUpLink(), "sing up link is not displayed....");
 	}
 
-	@Test(priority = 3)
+	@Test(priority = 3, enabled=false)
 	@Description("verify Login Test.....")
 	@Severity(SeverityLevel.BLOCKER)
 	public void loginTest() {

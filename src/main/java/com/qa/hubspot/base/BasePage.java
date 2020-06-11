@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -11,7 +13,10 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.qa.hubspot.utils.ElementUtil;
@@ -56,15 +61,28 @@ public class BasePage {
 		
 		optionsManager = new OptionsManager(prop);
 
-		//String browserName = prop.getProperty("browser");
-
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+			//tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+			
+			DesiredCapabilities cap = DesiredCapabilities.chrome();
+			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getChromeOptions());
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
+			//tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getFirefoxOptions());
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 
 		} else if (browserName.equalsIgnoreCase("safari")) {
 			WebDriverManager.getInstance(SafariDriver.class).setup();
