@@ -49,42 +49,38 @@ public class BasePage {
 	 * @return driver
 	 */
 	public WebDriver init_driver(Properties prop) {
-		
+
 		String browserName = null;
-		if(System.getProperty("browser") == null){
+		if (System.getProperty("browser") == null) {
 			browserName = prop.getProperty("browser");
-		}else{
+		} else {
 			browserName = System.getProperty("browser");
 		}
-		
-		System.out.println("Running on --->"+ browserName + " browser");
-		
+
+		System.out.println("Running on --->" + browserName + " browser");
+
 		optionsManager = new OptionsManager(prop);
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
-			//tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
-			
-			DesiredCapabilities cap = DesiredCapabilities.chrome();
-			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getChromeOptions());
-			try {
-				tlDriver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteWebDriver(browserName);
+			}
+			else {
+				tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			}
 
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
-			//tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
-			DesiredCapabilities cap = DesiredCapabilities.firefox();
-			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getFirefoxOptions());
-			try {
-				tlDriver.set(new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), cap));
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				init_remoteWebDriver(browserName);
 			}
-
-		} else if (browserName.equalsIgnoreCase("safari")) {
+			else {
+				tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
+				
+			}
+		}
+		else if (browserName.equalsIgnoreCase("safari")) {
 			WebDriverManager.getInstance(SafariDriver.class).setup();
 			tlDriver.set(new SafariDriver());
 		}
@@ -95,6 +91,29 @@ public class BasePage {
 		getDriver().get(prop.getProperty("url"));
 
 		return getDriver();
+
+	}
+
+	private void init_remoteWebDriver(String browserName) {
+		if (browserName.equalsIgnoreCase("chrome")) {
+			DesiredCapabilities cap = DesiredCapabilities.chrome();
+			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getChromeOptions());
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), cap));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		else if (browserName.equalsIgnoreCase("firefox")) {
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			cap.setCapability(ChromeOptions.CAPABILITY, optionsManager.getFirefoxOptions());
+			try {
+				tlDriver.set(new RemoteWebDriver(new URL(prop.getProperty("huburl")), cap));
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 
