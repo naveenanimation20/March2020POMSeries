@@ -1,15 +1,20 @@
 package com.qa.hubspot.utils;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.hubspot.base.BasePage;
@@ -226,6 +231,33 @@ public class ElementUtil extends BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, timeout);
 		wait.until(ExpectedConditions.titleContains(title));
 		return driver.getTitle();
+	}
+
+	public WebElement waitForElementFluentWait(By locator, int timeout) {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(timeout))
+				.pollingEvery(Duration.ofSeconds(Constants.POLLING_TIME_PERIOD))
+				.ignoring(NoSuchElementException.class);
+
+		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+
+	}
+	
+
+	public WebElement waitForElementWithFluentWait(By locator, int timeout) {
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofSeconds(timeout))
+				.pollingEvery(Duration.ofSeconds(Constants.POLLING_TIME_PERIOD))
+				.ignoring(NoSuchElementException.class);
+
+		WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+			@Override
+			public WebElement apply(WebDriver driver) {
+				return getElement(locator);
+			}
+		});
+
+		return element;
 	}
 
 }

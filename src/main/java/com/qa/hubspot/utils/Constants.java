@@ -1,6 +1,8 @@
 package com.qa.hubspot.utils;
 
 public class Constants {
+	
+	public static final int POLLING_TIME_PERIOD = 3;
 
 	//******************************Constants Name**************************
 
